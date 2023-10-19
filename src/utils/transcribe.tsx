@@ -1,6 +1,6 @@
-export async function transcribe(blob: Blob) {
+export async function transcribe(blob: Blob, mediaType: 'webm' | 'mp4' = 'webm') {
     const formData = new FormData();
-    const file = new File([blob], "audio.webm", { type: "webm/audio" });
+    const file = new File([blob], `audio.${mediaType}`, { type: `${mediaType}/audio` });
 
     formData.append("model", "whisper-1");
     formData.append("file", file);

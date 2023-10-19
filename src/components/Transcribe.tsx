@@ -6,7 +6,11 @@ import { useEffect, useState } from "react"
 import { useAudioRecorder } from "react-audio-voice-recorder";
 import styles from './Transcribe.module.css'
 
-export default function Transcribe() {
+export default function Transcribe({
+    isMobile
+}: {
+    isMobile: boolean
+}) {
 
     const [transcription, setTranscription] = useState<string>('')
     const [translation, setTranslation] = useState<string>('')
@@ -20,9 +24,9 @@ export default function Transcribe() {
         if (loading) return;
         setLoading(true);
 
-        setDebug(blob.size + ' ' + blob.type)
+        setDebug('isMobile: ' + isMobile + '; ' + blob.size + ' ' + blob.type)
 
-        const transcript = await transcribe(blob);
+        const transcript = await transcribe(blob, isMobile ? 'mp4' : 'webm');
         // const translation = await translate(blob);
         const translation = await translateGoogle(transcript);
 
