@@ -29,5 +29,5 @@ export async function translateGoogle(text: string) {
         })
     });
     const data = await res.json();
-    return data.data.translations[0].translatedText || null;
+    return data.data.translations[0].translatedText || "";
 }
