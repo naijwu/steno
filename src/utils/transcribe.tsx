@@ -1,13 +1,12 @@
+const typeToExt: any = {
+    'audio/webm': 'webm',
+    'audio/mp4': 'mp4'
+}
+
 export async function transcribe(blob: Blob) {
     const formData = new FormData();
-    const type = blob.type
-    const ext = (type: string) => {
-        switch (type) {
-            case 'audio/webm': return 'webm';
-            case 'audio/mp4': return 'mp4';
-        }
-    }
-    const file = new File([blob], `audio.${ext}`, { type });
+    const type = blob.type.split(';')[0]
+    const file = new File([blob], `audio.${typeToExt[type]}`, { type });
 
     formData.append("model", "whisper-1");
     formData.append("file", file);
