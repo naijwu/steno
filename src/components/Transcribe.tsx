@@ -34,7 +34,7 @@ export default function Transcribe({
 
         setDebug('isMobile: ' + isMobile + '; ' + blob.size + ' ' + blob.type)
 
-        const transcript = await transcribe(blob, isMobile ? 'mp4' : 'webm');
+        const transcript = await transcribe(blob);
         const translation = await translateGoogle(transcript);
 
         if (!transcript && !translation) {
