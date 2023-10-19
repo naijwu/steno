@@ -14,6 +14,8 @@ export default function Transcribe() {
 
   const { startRecording, stopRecording, recordingBlob } = useAudioRecorder();
 
+  const [debug, setDebug] = useState<string>('')
+
     async function handleRecording(blob: any) {
         if (loading) return;
         setLoading(true);
@@ -21,6 +23,7 @@ export default function Transcribe() {
         const transcript = await transcribe(blob);
         // const translation = await translate(blob);
         const translation = await translateGoogle(transcript);
+        setDebug(transcript + ' ' + translation)
 
         if (!transcript && !translation) {
             setLoading(false);
@@ -70,6 +73,7 @@ export default function Transcribe() {
             <div className={styles.translation}>
                 {translation}
             </div>
+            {debug}
             <div className={styles.engage}>
                 {loading ? (
                     <div className={styles.loading}>
