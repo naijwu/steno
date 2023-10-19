@@ -20,10 +20,11 @@ export default function Transcribe() {
         if (loading) return;
         setLoading(true);
 
+        setDebug(blob.size + ' ' + blob.type)
+
         const transcript = await transcribe(blob);
         // const translation = await translate(blob);
         const translation = await translateGoogle(transcript);
-        setDebug(transcript + ' ' + translation)
 
         if (!transcript && !translation) {
             setLoading(false);
