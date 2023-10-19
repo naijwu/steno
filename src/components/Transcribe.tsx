@@ -16,9 +16,17 @@ export default function Transcribe({
     const [translation, setTranslation] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(false)
 
-  const { startRecording, stopRecording, recordingBlob } = useAudioRecorder();
+    const { startRecording, stopRecording, recordingBlob } = useAudioRecorder();
 
-  const [debug, setDebug] = useState<string>('')
+    const [debug, setDebug] = useState<string>('')
+
+    const addAudioElement = (blob: Blob) => {
+        const url = URL.createObjectURL(blob);
+        const audio = document.createElement("audio");
+        audio.src = url;
+        audio.controls = true;
+        document.getElementById('recordingPreview')?.appendChild(audio);
+    };
 
     async function handleRecording(blob: any) {
         if (loading) return;
@@ -27,7 +35,6 @@ export default function Transcribe({
         setDebug('isMobile: ' + isMobile + '; ' + blob.size + ' ' + blob.type)
 
         const transcript = await transcribe(blob, isMobile ? 'mp4' : 'webm');
-        // const translation = await translate(blob);
         const translation = await translateGoogle(transcript);
 
         if (!transcript && !translation) {
@@ -37,6 +44,8 @@ export default function Transcribe({
 
         setTranscription(transcript);
         setTranslation(translation);
+
+        addAudioElement(blob);
 
         setLoading(false);
     }
@@ -79,6 +88,7 @@ export default function Transcribe({
                 {translation}
             </div>
             {debug}
+            <div id="recordingPreview"></div>
             <div className={styles.engage}>
                 {loading ? (
                     <div className={styles.loading}>

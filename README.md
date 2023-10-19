@@ -1,5 +1,3 @@
-whisper api wrapper
-
-most basic speech to text
+whisper api wrapper: speech to text PWA
 
 made so i can text in korean with less typos lol
