@@ -9,6 +9,10 @@
   font-weight: 500;
 }
 
+.translation {
+  opacity: 0.8;
+}
+
 .button {
   user-select: none;
   cursor: pointer;
