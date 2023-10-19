@@ -1,4 +1,4 @@
-import Transcribe from '@/components/Transcribe'
+import Transcribe from '@/components/TranscribeManual'
 import styles from './page.module.css'
 
 export default function Home() {
